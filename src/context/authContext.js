@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 const AuthContext = createContext();
+const API_URL = process.env.REACT_APP_API_URL || '';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   // Login user
   const login = async (formData) => {
     try {
-      const res = await axios.post('/api/v1/auth/login', formData);
+      const res = await axios.post(`${API_URL}/api/v1/auth/login`, formData);
       setToken(res.data.token);
       localStorage.setItem('token', res.data.token);
       navigate('/tasks');
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   // Register user
   const register = async (formData) => {
     try {
-      const res = await axios.post('/api/v1/auth/register', formData);
+      const res = await axios.post(`${API_URL}/api/v1/auth/register`, formData);
       setToken(res.data.token);
       localStorage.setItem('token', res.data.token);
       navigate('/tasks');

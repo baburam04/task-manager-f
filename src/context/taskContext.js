@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const TaskContext = createContext();
+const API_URL = process.env.REACT_APP_API_URL || '';
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
@@ -12,7 +13,7 @@ export const TaskProvider = ({ children }) => {
   const getTasks = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/v1/tasks');
+      const res = await axios.get(`${API_URL}/api/v1/tasks`);
       setTasks(res.data.data);
       setLoading(false);
     } catch (err) {
