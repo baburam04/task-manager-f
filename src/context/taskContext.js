@@ -25,7 +25,7 @@ export const TaskProvider = ({ children }) => {
   // Add task
   const addTask = async (task) => {
     try {
-      const res = await axios.post('/api/v1/tasks', task);
+      const res = await axios.post(`${API_URL}/api/v1/tasks`, task);
       setTasks([res.data.data, ...tasks]);
     } catch (err) {
       setError(err.response?.data?.message || 'Error adding task');
@@ -35,7 +35,7 @@ export const TaskProvider = ({ children }) => {
   // Update task
   const updateTask = async (id, updates) => {
     try {
-      const res = await axios.put(`/api/v1/tasks/${id}`, updates);
+      const res = await axios.put(`${API_URL}/api/v1/tasks/${id}`, updates);
       setTasks(tasks.map(task => task._id === id ? res.data.data : task));
     } catch (err) {
       setError(err.response?.data?.message || 'Error updating task');
@@ -45,7 +45,7 @@ export const TaskProvider = ({ children }) => {
   // Delete task
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`/api/v1/tasks/${id}`);
+      await axios.delete(`${API_URL}/api/v1/tasks/${id}`);
       setTasks(tasks.filter(task => task._id !== id));
     } catch (err) {
       setError(err.response?.data?.message || 'Error deleting task');

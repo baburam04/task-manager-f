@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 const API_URL = process.env.REACT_APP_API_URL || '';
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   // Set user when token exists
   useEffect(() => {
     if (token) {
-      const decoded = jwt_decode(token);
+      const decoded = jwtDecode(token);
       setUser(decoded);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
